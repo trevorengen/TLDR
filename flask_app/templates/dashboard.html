@@ -8,7 +8,13 @@
     <script type="text/javascript" src="{{ url_for('static', filename='js/scripts.js') }}"></script>
     <title></title>
 </head>
-<body>
+<body class="dash-body" onload="loadFunction();">
+    <nav class="nav-bar">
+        <h4>TL;DR</h4>
+        <a href="#" class="left-push">Login</a>
+        <a href="#" class="right-shove">Start for Free</a>
+    </nav>
+
     <main id="dash-main">
         <div class="top-div">
             <div class="container">
@@ -19,7 +25,7 @@
                     of both text documents, PDF documents, and even audio files!
                 </p>
             </div>
-            <div class="container" id="left-push">
+            <div class="container">
                 <h2>Example</h2>
                 <div class="example">
                     <textarea id="example-ta" disabled>
@@ -48,19 +54,29 @@ Its size and cultural position make it a model for the world's urban parks. Its 
         </div>
 
         <div class="inp-out">
-            <form method="POST" action="/summarize" class="paste-input" enctype="multipart/form-data">
+            <form id="inp-form" method="POST" class="paste-input" enctype="multipart/form-data">
                 <textarea name="summarize" placeholder="Paste your text here!"></textarea>
                 <div class="row">
                     <input type="file" id="myFile" name="file-upload">
-                    <input type="submit" value="TL;DR" id="tldr-butt">
+                    <div class="loader" id="loader"></div>
+                    <input type="submit" value="TL;DR" id="tldr-butt" id="tldr-butt">
+                </div>
+                <div class="file-types">
+                    <h6>Accepted File Types</h6>
+                    <p>
+                        TLDR currently accepts PDFs, txt, doc, docx, pptx, and more! TLDR can also accept images like PNGs and
+                        JPGs and extract the text out of them then summarize them for you. It can even accept audio files experimentally
+                        (but expect bugs if you do decide to give it a try).
+                    </p>
                 </div>
             </form>
     
             <div class="output">
-                <ul>
+                <ul id="output-ul">
+                    <h2>Notes</h2>
                     {% for items in summary %} 
                         {% for item in items %}
-                            {% if item != '' and item|length > 8 %} 
+                            {% if item|length > 10 %} 
                                 <li>{{item.lstrip().capitalize()}}</li>
                             {% endif %} 
                         {% endfor %}

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/log.css') }}">
+    <script type="text/javascript" src="{{ url_for('static', filename='js/log.js') }}"></script>
+    <title>Login/Register</title>
+</head>
+<body onload="whichToShow(); onLoad();">
+    <main class="container">
+        <div class="row justify-content-center my-3" id="div-contains">
+            <form class="col-4 rounded bg-primary bg-gradient bg-opacity-25 gx-5" id="login-form">
+                <h4 class="row justify-content-center my-3" id="title-login">Login/Register</h4>
+                <div class="row justify-content-center">
+                    <p class="col text-danger w-75" id="login-flash" style="display: none;">
+                        
+                    </p>
+                </div>
+                <input class="form-control my-0" type="text" placeholder="Email" name="email" id="login-email">
+                <input class="form-control my-2" type="password" placeholder="Password" name="password" id="login-password">
+                <div class="row justify-content-center">
+                    <input class="col-7 btn btn-primary btn-lg" id="loginbtn" name="login" value="Login" type="submit">
+                </div>
+                <p class="container my-3 text-muted w-100 p-0" id="register-link">
+                    Don't have an account? <a href="#" onclick="showRegistration();" id="mya">Click here</a> to register!
+                </p>
+            </form>
+            <form class="col-4 rounded bg-primary bg-gradient bg-opacity-25 border-3 gx-5 box-shadow-sm" id="register-form">
+                <h4 class="row justify-content-center my-3">Login/Register</h4>
+                <div class="row justify-content-center">
+                    <p class="col text-danger w-100" id="register-head-flash" style="display: none;">
+                        
+                    </p>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <input class="form-control my-1" type="text" placeholder="First Name" name="first_name" id="first-name" oninput="activeRegister(this);">
+                    </div>
+                    <div class="col">
+                        <input class="form-control my-1" type="text" placeholder="Last Name" name="last_name" id="last-name" oninput="activeRegister(this);">
+                    </div>
+                </div>
+                <div class="row justify-content-center">
+                    <p class="col text-danger w-100" id="register-email-flash" style="display: none;">
+                        
+                    </p>
+                </div>
+                <input class="form-control my-2" type="text" placeholder="Email" name="email" id="email" oninput="activeRegister(this);">
+                <div class="row justify-content-center">
+                    <p class="col text-danger w-100" id="register-password-flash" style="display: none;">
+                        
+                    </p>
+                </div>
+                <input class="form-control my-2" type="password" placeholder="Password" name="password" id="password" oninput="activeRegister(this);">
+                <div class="row justify-content-center">
+                    <p class="col text-danger w-100" id="register-confirm-password-flash" style="display: none;">
+                        
+                    </p>
+                </div>
+                <input class="form-control my-2" type="password" placeholder="Confirm Password" name="confirm-password" id="confirm-password" oninput="activeRegister(this);">
+                <div class="row justify-content-center">
+                    <input class="col-7 btn btn-primary btn-lg my-2" id="regbtn" name="register" value="Register" type="submit">
+                </div>
+                <div class="row justify-content-center">
+                    <p class="container my-3 text-muted w-100" id="login-link">
+                        Already have an account? <a href="#" onclick="showLogin();">Click here</a> to login!
+                    </p>
+                </div>
+
+            </form>
+        </div>
+    </main>
+</body>
+</html>

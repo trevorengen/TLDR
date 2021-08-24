@@ -96,7 +96,7 @@
 
 .paste-input {
     margin-top: 30px;
-    background-color: #083D77;
+
     display: flex;
     flex-flow: column nowrap;
     justify-content: center;
@@ -110,6 +110,7 @@
     border: 2px solid black;
     border-radius: 4px;
     padding: 5px;
+    resize: none;
 }
 
 .paste-input textarea:focus {
@@ -130,36 +131,36 @@ li {
 #tldr-butt {
     height: 70px;
     width: 150px;
-    background-color:rgb(177, 75, 55);
+    background: rgb(59,133,242);
+    background: linear-gradient(169deg, rgba(59,133,242,1) 0%, rgba(61,161,200,1) 53%);
     border-radius: 20px;
     font-size: 30px;
     font-weight: 700;
     margin-left: auto;
     margin-top: 15px;
-    border: 4px solid black;
+    border: 2px solid rgb(29, 65, 119)
 }
 
 #tldr-butt:hover {
-    background-color: rgb(146, 62, 45);
+    background: rgb(53, 117, 214);
+    background: linear-gradient(169deg, rgb(52, 114, 207) 0%, rrgb(52, 137, 170)53%);
     cursor: pointer;
 }
 
 .output {
-    border: 10px solid rgb(200,85,61);
-    padding: 50px;
+    padding: 40px;
     border-radius: 30px;
     margin-left: 30px;
     margin-top: 30px;
+    background-color: rgba(117, 224, 243, 0.397);
+    height: 550px;
+    overflow-y: auto;
 }
 
 .top-div {
     display: flex;
     flex-flow: row nowrap;
-    justify-content:flex-start;
-}
-
-#left-push {
-    margin-left: 100px;
+    justify-content:space-between;
 }
 
 .example {
@@ -167,6 +168,10 @@ li {
     flex-flow: row nowrap;
     border-top: 2px solid black;
     padding-top: 25px;
+    width: auto;
+    background-color: rgba(117, 224, 243, 0.397);
+    padding: 20px;
+    border-radius: 10px;
 }
 
 #example-list li {
@@ -176,16 +181,143 @@ li {
 
 #example-list {
     margin-left: 30px;
+    width: auto;
+    height: 300px;
+    overflow-y: auto;
 }
 
 #example-ta {
-    width: 550px;
+    width: auto;
     resize: none;
     padding: 10px;
+    min-width: 200px;
+    background-color: white;
+    border-radius: 4px;
 }
 
 .example span {
     margin: auto 10px;
     font-size: 40px;
+}
 
+.file-types {
+    width: 500px;
+}
+
+.file-types h6 {
+    font-size: 20px;
+    margin-bottom: 5px;
+}
+
+.file-types p {
+    font-size: 20px;
+    padding-top: 5px;
+    border-top: 2px solid black;
+    font-size: 15px;
+}
+
+ul h2 {
+    margin-bottom: 5px;
+    width: 100%;
+    border-bottom: 2px solid black;
+    padding-bottom: 5px;
+}
+
+.row {
+    width: 100%;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.dash-body {
+    background-color: rgb(217,90,90)
+}
+
+.nav-bar {
+    display: flex;
+    flex-flow: row nowrap;
+    height: 60px;
+    border-bottom-left-radius: 3px;
+    border-bottom-right-radius: 3px;
+    justify-content: center;
+}
+
+.nav-bar a.left-push {
+    margin-left: auto;
+}
+
+.nav-bar a.right-shove {
+    margin-right: 50px;
+}
+
+.nav-bar a {
+    text-decoration: none;
+    font-size: 25px;
+    margin: auto 30px;
+    width: auto;
+    font-weight: 600;
+    color: white;
+}
+
+.nav-bar a:hover {
+    text-decoration: underline;
+}
+
+.nav-bar h4 {
+    margin: auto 100px;
+    font-size: 30px;
+}
+
+.loader {
+    border: 16px solid #f3f3f3; /* Light grey */
+    border-top: 16px solid #3498db; /* Blue */
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    animation: spin 2s linear infinite;
+    display: none;
+    margin-top: 15px;
+    margin-right: 15px;
+}
+  
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+@media only screen and (max-width: 1210px) {
+    .top-div {
+        display: flex;
+        flex-flow: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .container {
+        margin-top: 10px;
+        margin-left: 50px;
+        margin-right: 50px;
+    }
+
+    .inp-out {
+        display: flex;
+        flex-flow: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    #blue-back button {
+        margin-top: 50px;
+    }
+}
+
+@media only screen and (max-width: 1000px) {
+    #orange-back {
+        display: none;
+    }
+    #blue-back {
+        width: 100%;
+    }
 }

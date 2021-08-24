@@ -1,0 +1,193 @@
+* {
+    border: 0;
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+}
+
+#mybtn {
+    margin: 0 auto;
+}
+
+#register-form {
+    display: none;
+}
+
+p {
+    font-size: 13px;
+}
+
+#register-link, #login-link {
+    text-align: center;
+}
+
+.update-form {
+    display: flex;
+    flex-flow: column nowrap;
+    width: 400px;
+    margin: 30px;
+}
+
+.update-main {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-evenly;
+}
+
+.update-mags {
+    margin: 30px;
+}
+
+.update-form input {
+    border: 1.5px solid black;
+    border-radius: 3px;
+    height: 30px;
+    padding: 3px;
+    margin-bottom: 7px;
+    width: 80%;
+}
+
+#update {
+    margin-top: 10px;
+    width: 20%;
+}
+
+.myrow {
+    display: flex;
+    flex-flow: row nowrap;
+}
+
+.myrow p {
+    font-size: 12px;
+    text-align: center;
+    margin: auto 0;
+    margin-left: 3px;
+}
+
+nav {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: end;
+    height: 70px;
+    border-bottom: 2px solid black;
+    background-color: rgba(84, 214, 117, 0.603);
+
+}
+
+nav a {
+    margin: auto 15px;
+}
+
+.push {
+    margin-left: auto;
+}
+
+.dash-ul {
+    margin: 30px;
+    border: 3px solid black;
+    border-radius: 8px;
+    width: 650px;
+    height: 500px;
+    overflow-y: auto;
+}
+
+.dash-li {
+    list-style: none;
+    margin: 5px 3px;
+    padding: 5px 0;
+    border-bottom: 2px dashed grey;
+    width: 95%;
+}
+
+h3 {
+    margin: 10px 0;
+    border-bottom: 2px solid black;
+    width: 95%;
+}
+
+.add-form {
+    display: flex;
+    flex-flow: column nowrap;
+    width: 400px;
+    margin: 40px;
+}
+
+.add-form input {
+    width: 180px;
+    border: 2px solid black;
+    border-radius: 3px;
+    margin-bottom: 7px;
+    padding: 3px;
+}
+
+.add-form textarea {
+    resize: none;
+    height: 200px;
+    padding: 3px;
+    width: 450px;
+    border: 2px solid black;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+.add-form input[type=submit] {
+    height: 40px;
+    width: 100px;
+    min-width: 100px;
+}
+
+.show-mag {
+    margin: 10px 60px;
+}
+
+.inner {
+    margin-left: 25px;
+}
+
+.description-p {
+    margin-left: 25px;
+    font-size: 16px;
+    margin-bottom: 50px;
+}
+
+.show-li {
+    list-style-type: circle;
+    margin-left: 15px;
+}
+
+.show-h1 {
+    border-bottom: 2px solid black;
+    width: 600px;
+    padding-left: 20px;
+}
+
+.show-h4 {
+    border-bottom: 1.25px solid grey;
+    width: 550px;
+}
+
+.show-author {
+    margin-bottom: 35px;
+}
+
+.nav-h1 {
+    margin: auto 15px;
+}
+
+.end-push {
+    margin-right: 50px;
+}
+
+#this-toast {
+    margin: 30px;
+    border: 2px solid grey;
+    border-radius: 4px;
+    box-shadow: 2px 3px 7px 1px grey;
+    position: absolute;
+    bottom: 15px;
+    left: 15px;
+}
+
+.inner-li {
+    margin-bottom: 7px;
+}
