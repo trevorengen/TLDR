@@ -4,6 +4,7 @@ function loadFunction() {
     subForm();
     saveNotebook();
     deleteNotebook();
+    saveToNotebook();
 }
 
 function subForm() {
@@ -19,6 +20,14 @@ function subForm() {
             .then(response => response.json())
             .then(data => showSummary(data))
 
+    }
+}
+
+function saveToNotebook() {
+    var myForm = document.getElementById('save-to-notebook');
+    myForm.onsubmit = function(e) {
+        e.preventDefault();
+        getAllBullets();
     }
 }
 
@@ -41,6 +50,19 @@ function showSummary(data) {
     }
     document.getElementById('tldr-butt').style.display = 'block';
     document.getElementById('loader').style.display = 'none';
+}
+
+function getAllBullets() {
+    var ul = document.getElementById('output-ul');
+    var bullets = [];
+    for (var i = 1; i < ul.children.length; i++) {
+        bullets.push(ul.children[i].innerHTML);
+    }
+    select = document.getElementById('notebook-select');
+    jsonToPost = JSON.stringify([{'bullets': bullets, 'notebook_name': select[select.selectedIndex].value}]);
+    fetch('http://localhost:5000/notebooks/save', {method: 'POST', body: jsonToPost})
+        .then(response => response.json())
+        .then(data => console.log(data))
 }
 
 function registerButton() {

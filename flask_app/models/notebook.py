@@ -42,15 +42,21 @@ class Notebook:
 
     @classmethod
     def get_one_notebook(cls, data):
-        query = 'SELECT * FROM notebooks LEFT JOIN bullets ON notebooks.id = bullets.notebook_id '
+        query = 'SELECT * FROM notebooks '
         query += 'WHERE notebooks.name = %(name)s AND notebooks.user_id = %(user_id)s;'
         result = connectToMySQL(DB).query_db(query, data)
         notebook = cls(result[0])
+        query = 'SELECT bullets.id, bullets.bullet FROM bullets WHERE notebook_id = %(notebook_id)s;'
+        bullets = connectToMySQL(DB).query_db(query, {'notebook_id': notebook.id})
+        if bullets == False:
+            return notebook
+        for bullet in bullets:
+            notebook.bullets.append(bullet['bullet'])
         return notebook
 
     @classmethod
     def get_all_users_notebooks(cls, data):
-        query = 'SELECT * FROM notebooks LEFT JOIN bullets ON notebooks.id = bullets.notebook_id '
+        query = 'SELECT * FROM notebooks '
         query += 'WHERE notebooks.user_id = %(user_id)s;'
         results = connectToMySQL(DB).query_db(query, data)
         if results == False:
@@ -64,4 +70,28 @@ class Notebook:
     def get_all_bullets(cls, data):
         query = 'SELECT bullet FROM bullets WHERE notebook_id = %(id)s;'
         results = connectToMySQL(DB).query_db(query, data)
+        return results
+
+    # Assumes bullets are passed as an array.
+    @classmethod
+    def insert_bullets(cls, data):
+        notebook = Notebook.get_one_notebook(data)
+        results = None
+        for bullet in data['bullets']:
+            if bullet in notebook.bullets:
+                continue
+            else:
+                new_data = {'bullet': bullet, 'notebook_id': notebook.id}
+                query = 'INSERT INTO bullets (bullet, notebook_id) VALUES (%(bullet)s, %(notebook_id)s);'
+                results = connectToMySQL(DB).query_db(query, new_data)
+        if results == None:
+            return False
+        return results
+
+    @classmethod
+    def delete_notebook_bullets(cls, data):
+        notebook = Notebook.get_one_notebook(data)
+        new_data = {'id': notebook.id}
+        query = 'DELETE FROM bullets WHERE notebook_id = %(id)s;'
+        results = connectToMySQL(DB).query_db(query, new_data)
         return results

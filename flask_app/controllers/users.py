@@ -27,7 +27,7 @@ def dashboard():
         notebooks = Notebook.get_all_users_notebooks(session)
     else:
         user = None
-        notebooks = None
+        notebooks = []
     return render_template('dashboard.html', summary=summary, user=user, notebooks=notebooks)
 
 @app.route('/summarize', methods=['POST'])

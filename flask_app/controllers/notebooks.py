@@ -1,4 +1,5 @@
 from flask import json, render_template, redirect, request, session, jsonify, flash, get_flashed_messages
+from flask.json import JSONDecoder
 from flask_app import app
 from flask_app.models.user import User
 from flask_app.models.notebook import Notebook
@@ -28,9 +29,31 @@ def delete_notebook():
         return jsonify('flash error')
     data = {'name': request.form.get('notebook-select'),
             'user_id': session['user_id']}
+    Notebook.delete_notebook_bullets(data)
     Notebook.delete_notebook(data)
     notebooks = Notebook.get_all_users_notebooks(session)
     notebook_names = []
     for notebook in notebooks:
         notebook_names.append(notebook.name)
     return jsonify(notebook_names)
+
+@app.route('/notebooks/save', methods=['POST'])
+def save_to_notebook():
+    if 'user_id' not in session:
+        flash('You must be logged in to use notebooks.')
+        return jsonify('flash error')
+    post = request.get_data().decode('utf-8')
+    decoder = JSONDecoder()
+    post = decoder.decode(post)[0]
+    bullets = post['bullets']
+    notebook_name = post['notebook_name']
+    data = {'name': notebook_name,
+            'user_id': session['user_id']}
+    notebook = Notebook.get_one_notebook(data)
+    data = {'bullets': bullets,
+            'notebook_id': notebook.id,
+            'user_id': session['user_id'],
+            'name': notebook.name}
+    Notebook.insert_bullets(data)
+    return jsonify('test')
+    
