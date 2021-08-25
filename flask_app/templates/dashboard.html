@@ -5,12 +5,13 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/toast.css') }}">
     <script type="text/javascript" src="{{ url_for('static', filename='js/scripts.js') }}"></script>
     <title></title>
 </head>
 <body class="dash-body" onload="loadFunction();">
     <nav class="nav-bar">
-        <h4>TL;DR</h4>
+        <h4><a href="/">TL;DR</a></h4>
         {% if user == None %}
             <a href="/login" class="left-push" onclick="loginButton();">Login</a>
             <a href="/register" class="right-shove" onclick="registerButton();">Start for Free</a>
@@ -116,6 +117,10 @@ Its size and cultural position make it a model for the world's urban parks. Its 
                     <input type="submit" name="save-notebook" value="Save to Notebook" class="form-butt" id="save-notebook">
                 </form>
             </div>
+        </div>
+
+        <div id="snackbar">
+            Saved to Notebook Successfully!
         </div>
     </main>
 </body>

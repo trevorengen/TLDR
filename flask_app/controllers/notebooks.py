@@ -55,5 +55,5 @@ def save_to_notebook():
             'user_id': session['user_id'],
             'name': notebook.name}
     Notebook.insert_bullets(data)
-    return jsonify('test')
+    return jsonify('success')
     

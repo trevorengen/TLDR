@@ -62,7 +62,14 @@ function getAllBullets() {
     jsonToPost = JSON.stringify([{'bullets': bullets, 'notebook_name': select[select.selectedIndex].value}]);
     fetch('http://localhost:5000/notebooks/save', {method: 'POST', body: jsonToPost})
         .then(response => response.json())
-        .then(data => console.log(data))
+        .then(data => data == 'success' ? showSnackbar() : console.log('Error Saving')) // Change the console log to give user a more helpful error messsage.
+}
+
+function showSnackbar() {
+    console.log('here')
+    var snackbar = document.getElementById('snackbar');
+    snackbar.className = 'show';
+    setTimeout(function() { snackbar.className = snackbar.className.replace('show', '');}, 3000);
 }
 
 function registerButton() {
@@ -98,7 +105,7 @@ function deleteNotebook() {
     var myForm = document.getElementById('delete-form');
     var mySelect = document.getElementById('notebook-select');
     myForm.onsubmit = function(e) {
-        if (!confirm('Delete ' + mySelect.options[mySelect.selectedIndex].text + '?\n\nThis action is irreversiable.')) {
+        if (!confirm('Delete ' + mySelect.options[mySelect.selectedIndex].text + '?\n\nThis action is irreversible.')) {
             return;
         } else {
             var form = new FormData(myForm);
