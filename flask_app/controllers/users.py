@@ -1,6 +1,7 @@
 from flask import render_template, redirect, request, session, jsonify, flash, get_flashed_messages
 from flask_app import app
 from flask_app.models.user import User
+from flask_app.models.notebook import Notebook
 from flask_bcrypt import Bcrypt
 from summarize import other_to_text, summarize
 import os
@@ -23,9 +24,11 @@ def dashboard():
         summary = ''
     if 'user_id' in session:
         user = User.get_user(session)
+        notebooks = Notebook.get_all_users_notebooks(session)
     else:
         user = None
-    return render_template('dashboard.html', summary=summary, user=user)
+        notebooks = None
+    return render_template('dashboard.html', summary=summary, user=user, notebooks=notebooks)
 
 @app.route('/summarize', methods=['POST'])
 def summarize_text():
