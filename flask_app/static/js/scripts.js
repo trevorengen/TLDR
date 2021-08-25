@@ -127,7 +127,7 @@ function addToSelect(data) {
     for (var i = 0; i < data.length; i++) {
         var option = document.createElement('option');
         option.value = data[i];
-        option.innerHTML = data[i];
+        option.innerHTML = data[i].title();
         mySelect.appendChild(option);
     }
     mySelect.selectedIndex = data.length-1;

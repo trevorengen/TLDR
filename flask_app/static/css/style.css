@@ -393,6 +393,28 @@ li {
     margin-top: 10px;
 }
 
+#create-new {
+    width: 200px;
+}
+
+.notebooks-li.row {
+    justify-content: flex-start;
+}
+
+.left-push {
+    margin-left: auto;
+    margin-right: 10px;
+}
+
+.right-shove {
+    margin-right: 50px;
+    margin-left: 20px;
+}
+
+.delete-nb, .edit-nb {
+    background-color: #EAEAE0;
+}
+
 .nav-bar a.left-push {
     margin-left: auto;
 }

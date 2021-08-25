@@ -102,8 +102,11 @@ class Notebook:
 
     @classmethod
     def delete_notebook_bullets(cls, data):
-        notebook = Notebook.get_one_notebook(data)
-        new_data = {'id': notebook.id}
+        if ('id' not in data):
+            notebook = Notebook.get_one_notebook(data)
+            new_data = {'id': notebook.id}
+        else:
+            new_data = data
         query = 'DELETE FROM bullets WHERE notebook_id = %(id)s;'
         results = connectToMySQL(DB).query_db(query, new_data)
         return results

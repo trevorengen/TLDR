@@ -19,13 +19,27 @@ def add_notebook():
     if 'user_id' not in session:
         flash('You must be logged in to save notebooks.')
         return jsonify('flash error')
-    data = {'name': request.form['new-name'],
-            'user_id': session['user_id']}
-    Notebook.save_notebook(data)
+    if 'name' in request.form:
+        data = {'name': request.form['name'],
+                'user_id': session['user_id']}
+    else:
+        data = {'name': request.form['new-name'],
+                'user_id': session['user_id']}
     notebooks = Notebook.get_all_users_notebooks(session)
     notebook_names = []
+    save = True
+    # Check to make sure the name doesn't already exist. 
+    # We check here so that we don't muck up the users name
+    # incase they want to use weird capitals in places. This allows
+    # us to make sure that the name is not the same but allows them to
+    # visually still see how they entered it.
     for notebook in notebooks:
+        if data['name'].lower() == notebook.name.lower():
+            save = False
         notebook_names.append(notebook.name)
+    if save:
+        Notebook.save_notebook(data)
+        notebook_names.append(data['name'])
     return jsonify(notebook_names)
 
 @app.route('/notebooks/delete', methods=['POST'])
@@ -33,8 +47,12 @@ def delete_notebook():
     if 'user_id' not in session:
         flash('You must be logged in to manage notebooks.')
         return jsonify('flash error')
-    data = {'name': request.form.get('notebook-select'),
-            'user_id': session['user_id']}
+    if 'nbName' in request.form:
+        data = {'name': request.form['nbName'],
+                'user_id': session['user_id']}
+    else:
+        data = {'name': request.form.get('notebook-select'),
+                'user_id': session['user_id']}
     Notebook.delete_notebook_bullets(data)
     Notebook.delete_notebook(data)
     notebooks = Notebook.get_all_users_notebooks(session)
@@ -115,8 +133,8 @@ def delete_all_bullets():
         return redirect('/dashboard')
     if 'active_notebook' not in session:
         return jsonify('Valid notebook not found.')
-    data = {'user_id': session['user_id'],
-            'name': session['active_notebook']}
+    data = {'name': session['active_notebook'],
+    'user_id': session['user_id'],}
     notebook = Notebook.get_one_without_bullets(data)
     result = Notebook.delete_notebook_bullets({'id': notebook.id})
     if result == False:

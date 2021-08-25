@@ -6,9 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/toast.css') }}">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script type="text/javascript" src="{{ url_for('static', filename='js/notebooks.js') }}"></script>
     <script type="text/javascript" src="{{ url_for('static', filename='js/scripts.js') }}"></script>
+    <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
     <title>Notebooks</title>
 </head>
 <body class="notebooks-body">
@@ -20,13 +22,19 @@
 
     <main id="notebooks-main">
         <div class="notebook-list">
-            <h2>Your Notebooks</h2>
+            <div class="row">
+                <h2>Your Notebooks</h2>
+                <button id="add-nb" class="notebook-butt">Add Notebook</button>
+            </div>
             <ul id="notebook-ul">
                 {% if notebooks|length < 1 %}
-                    <li>You don't have any notebooks yet!</li>
                 {% else %} 
                     {% for notebook in notebooks %} 
-                        <li id="{{notebook.name}}" class="notebooks-li">{{notebook.name}}</li>
+                        <div class="row" id="{{notebook.name}}">
+                            <li class="notebooks-li row">{{notebook.name}}</li>
+                            <button class="edit-nb"><i class='far fa-edit left-push' style='font-size:24px'></i></button>
+                            <button class="delete-nb"><i class="fa fa-trash right-shove" style="font-size:24px"></i></button>
+                        </div>
                     {% endfor %} 
                 {% endif %} 
             </ul>
