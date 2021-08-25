@@ -447,6 +447,10 @@ li {
     font-weight: 600;
 }
 
+#queryta:focus {
+    outline: none;
+}
+
 form.row {
     margin: 20px 0;
 }

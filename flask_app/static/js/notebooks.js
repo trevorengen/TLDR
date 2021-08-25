@@ -14,6 +14,7 @@ $(document).ready(function() {
     $('.notebooks-li').click(function(){
         var nb = $(this).attr('id');
         var targetUl = $('#bullet-ul');
+        var targetTa = $('#queryta');
         $.post('/notebooks/retrieve', { notebook : nb })
             .done(function(data) {
                 targetUl.empty();
@@ -22,6 +23,8 @@ $(document).ready(function() {
                     newLi.appendTo(targetUl);
                     newLi.text(data[i]);
                 }
+                targetTa.prop('disabled', false);
+                targetTa.attr('placeholder', 'Ask your notebook a question!');
             });
     });
     
