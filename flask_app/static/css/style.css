@@ -271,7 +271,14 @@ ul h2 {
     margin-bottom: 10px;
 }
 
-.dash-body {
+#notebooks-main {
+    display: flex;
+    flex-flow: row;
+    justify-content: space-evenly;
+    margin-top: 30px;
+}
+
+.dash-body, .notebooks-body {
     background-color: #262b2e;
 }
 
@@ -284,6 +291,83 @@ ul h2 {
     justify-content: center;
     background-color: #1DC690;
     box-shadow: 0px 2px 7px 3px black;
+}
+
+.notebook-list {
+    height: 600px;
+    width: 500px;
+    border-radius: 10px;
+    padding: 15px 50px;
+    background-color: #EAEAE0;
+    margin: 15px;
+    display: flex;
+    flex-flow: column nowrap;
+    box-shadow: 2px 2px 7px 1px black;
+}
+
+#askform {
+    display: flex;
+    flex-flow: row nowrap;
+    
+}
+
+li {
+    position:relative;
+}
+
+.notebooks-li {
+    cursor: pointer;
+}
+
+.notebook-list h4 {
+    margin-left: 8px;
+}
+
+#ask {
+    height: 112px;
+    margin: 0 0 0 5px;
+    width: 150px;
+    border-radius: 14px;
+    background-color: #1DC690;
+    font-size: 30px;
+    font-weight: bolder;
+    border: 2px solid black;
+    box-shadow: 2px 2px 7px 1px black;
+}
+
+#ask:hover {
+    background-color: #18a176;
+    cursor: pointer;
+}
+
+#queryta {
+    height: 100px;
+    border: 2px solid black;
+    width: 400px;
+    resize: none;
+    padding: 4px 10px;
+    border-radius: 14px;
+}
+
+#notebook-ul li {
+    margin: 10px 0;
+    padding-left: 50px;
+}
+
+#notebook-ul {
+    list-style: none;
+    margin-top: 10px;
+    border-top: 2px solid black;
+    max-height: 200px;
+}
+
+.notebook-list h4 {
+    margin-top: auto;
+}
+
+#bullet-ul {
+    overflow-y: auto;
+    padding-left: 18px;
 }
 
 .nav-bar a.left-push {
@@ -465,5 +549,12 @@ form.row {
     }
     #blue-back {
         width: 100%;
+    }
+
+    #notebooks-main {
+        display: flex;
+        flex-flow: column wrap;
+        justify-content: center;
+        align-items: center;
     }
 }

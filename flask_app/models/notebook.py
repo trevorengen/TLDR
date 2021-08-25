@@ -45,6 +45,8 @@ class Notebook:
         query = 'SELECT * FROM notebooks '
         query += 'WHERE notebooks.name = %(name)s AND notebooks.user_id = %(user_id)s;'
         result = connectToMySQL(DB).query_db(query, data)
+        if result == False:
+            return False
         notebook = cls(result[0])
         query = 'SELECT bullets.id, bullets.bullet FROM bullets WHERE notebook_id = %(notebook_id)s;'
         bullets = connectToMySQL(DB).query_db(query, {'notebook_id': notebook.id})
@@ -53,6 +55,16 @@ class Notebook:
         for bullet in bullets:
             notebook.bullets.append(bullet['bullet'])
         return notebook
+
+    @classmethod
+    def get_one_without_bullets(cls, data):
+        query = 'SELECT * FROM notebooks WHERE notebooks.name = %(name)s AND notebooks.user_id = %(user_id)s;'
+        result = connectToMySQL(DB).query_db(query, data)
+        if result == False:
+            return False
+        notebook = cls(result[0])
+        return notebook
+
 
     @classmethod
     def get_all_users_notebooks(cls, data):

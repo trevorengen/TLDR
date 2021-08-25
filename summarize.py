@@ -55,4 +55,3 @@ def other_to_text(file):
     text = textract.process(file.filename)
     os.remove(file.filename)
     return text
-    

@@ -7,7 +7,7 @@
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/toast.css') }}">
     <script type="text/javascript" src="{{ url_for('static', filename='js/scripts.js') }}"></script>
-    <title></title>
+    <title>Dashboard</title>
 </head>
 <body class="dash-body" onload="loadFunction();">
     <nav class="nav-bar">
@@ -16,7 +16,7 @@
             <a href="/login" class="left-push" onclick="loginButton();">Login</a>
             <a href="/register" class="right-shove" onclick="registerButton();">Start for Free</a>
         {% else %} 
-            <a href="/notes" class="left-push">My Notebooks</a>
+            <a href="/notebooks" class="left-push">My Notebooks</a>
             <a href="/logout" class="right-shove">Logout</a>
         {% endif %}
     </nav>

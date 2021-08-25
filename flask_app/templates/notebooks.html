@@ -4,9 +4,44 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/toast.css') }}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/notebooks.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/scripts.js') }}"></script>
+    <title>Notebooks</title>
 </head>
-<body>
-    
+<body class="notebooks-body">
+    <nav class="nav-bar">
+        <h4><a href="/">TL;DR</a></h4>
+        <a href="/dashboard" class="left-push">Dashboard</a>
+        <a href="/logout" class="right-shove">Logout</a>
+    </nav>
+
+    <main id="notebooks-main">
+        <div class="notebook-list">
+            <h2>Your Notebooks</h2>
+            <ul id="notebook-ul">
+                {% if notebooks|length < 1 %}
+                    <li>You don't have any notebooks yet!</li>
+                {% else %} 
+                    {% for notebook in notebooks %} 
+                        <li id="{{notebook.name}}" class="notebooks-li">{{notebook.name}}</li>
+                    {% endfor %} 
+                {% endif %} 
+            </ul>
+        </div>
+        <div class="notebook-list">
+            <h2>Notes</h2>
+            <ul id="bullet-ul">
+                <li>Select a notebook to get started!</li>
+            </ul>
+            <h4>Query your notebook</h4>
+            <form method="POST" id="askform">
+                <textarea id="queryta" name="queryta" placeholder="Select a notebook to start!" disabled></textarea>
+                <input type="submit" value="Ask" id="ask">
+            </form>
+        </div>
+    </main>
 </body>
 </html>
