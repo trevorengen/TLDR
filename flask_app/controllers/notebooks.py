@@ -3,6 +3,7 @@ from flask.json import JSONDecoder
 from flask_app import app
 from flask_app.models.user import User
 from flask_app.models.notebook import Notebook
+from query import query_notebook
 
 @app.route('/notebooks')
 def notebooks():
@@ -73,3 +74,51 @@ def retrieve_notebook():
     session['active_notebook'] = notebook.name
     bullets = notebook.bullets
     return jsonify(bullets)
+
+@app.route('/notebooks/query', methods=['POST'])
+def ask_to_notebook():
+    if 'user_id' not in session:
+        return redirect('/dashboard')
+    if 'active_notebook' not in session:
+        return jsonify('Valid notebook not found.')
+    query = request.form['query']
+    notebook_name = session['active_notebook']
+    data = {
+            'user_id': session['user_id'],
+            'name': notebook_name
+    }
+    notebook = Notebook.get_one_notebook(data)
+    context = ' '.join(notebook.bullets)
+    answer = query_notebook(query, context)
+    return jsonify(answer)
+
+@app.route('/notebooks/addbullet', methods=['POST'])
+def add_bullet():
+    if 'user_id' not in session:
+        return redirect('/dashboard')
+    if 'active_notebook' not in session:
+        return jsonify('Valid notebook not found.')
+    bullet = request.form['bullet']
+    data = {'name': session['active_notebook'],
+            'user_id': session['user_id']}
+    notebook = Notebook.get_one_without_bullets(data)
+    bullet_data = {'bullet': bullet,
+                    'notebook_id': notebook.id}
+    result = Notebook.insert_one_bullet(bullet_data)
+    if result == False:
+        return jsonify('Error adding bullet.')
+    return jsonify('Complete')
+
+@app.route('/notebooks/deletebullets', methods=['POST'])
+def delete_all_bullets():
+    if 'user_id' not in session:
+        return redirect('/dashboard')
+    if 'active_notebook' not in session:
+        return jsonify('Valid notebook not found.')
+    data = {'user_id': session['user_id'],
+            'name': session['active_notebook']}
+    notebook = Notebook.get_one_without_bullets(data)
+    result = Notebook.delete_notebook_bullets({'id': notebook.id})
+    if result == False:
+        return jsonify('Error deleting bullets.')
+    return jsonify('Complete')

@@ -107,3 +107,9 @@ class Notebook:
         query = 'DELETE FROM bullets WHERE notebook_id = %(id)s;'
         results = connectToMySQL(DB).query_db(query, new_data)
         return results
+
+    @classmethod
+    def insert_one_bullet(cls, data):
+        query = 'INSERT INTO bullets (bullet, notebook_id) VALUES(%(bullet)s, %(notebook_id)s);'
+        results = connectToMySQL(DB).query_db(query, data)
+        return results

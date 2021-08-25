@@ -32,15 +32,20 @@
             </ul>
         </div>
         <div class="notebook-list">
-            <h2>Notes</h2>
+            <div class="row">
+                <h2>Notes</h2>
+                <button class="notebook-butt" id="add-bullet">Add Bullet</button>
+                <button class="notebook-butt" id="delete-all">Delete All</button>
+            </div>
+            
             <ul id="bullet-ul">
                 <li>Select a notebook to get started!</li>
             </ul>
             <h4>Query your notebook</h4>
-            <form method="POST" id="askform">
+            <div id="askform">
                 <textarea id="queryta" name="queryta" placeholder="Select a notebook to start!" disabled></textarea>
                 <input type="submit" value="Ask" id="ask">
-            </form>
+            </div>
         </div>
     </main>
 </body>

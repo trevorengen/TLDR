@@ -105,6 +105,7 @@ function deleteNotebook() {
     var myForm = document.getElementById('delete-form');
     var mySelect = document.getElementById('notebook-select');
     myForm.onsubmit = function(e) {
+        e.preventDefault();
         if (!confirm('Delete ' + mySelect.options[mySelect.selectedIndex].text + '?\n\nThis action is irreversible.')) {
             return;
         } else {

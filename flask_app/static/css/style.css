@@ -189,6 +189,24 @@ li {
     width: auto;
 }
 
+.notebook-butt {
+    background-color: #1DC690;
+    height: 30px;
+    width: 120px;
+    border-radius: 10px;
+    box-shadow: 2px 1px 7px 1px black;
+    font-weight: bolder;
+}
+
+.notebook-butt:hover {
+    background-color: #18a176;
+    cursor: pointer;
+}
+
+.notebook-butt:focus {
+    outline: none;
+}
+
 .top-div {
     display: flex;
     flex-flow: row nowrap;
@@ -294,7 +312,7 @@ ul h2 {
 }
 
 .notebook-list {
-    height: 600px;
+    height: 700px;
     width: 500px;
     border-radius: 10px;
     padding: 15px 50px;
@@ -335,6 +353,10 @@ li {
     box-shadow: 2px 2px 7px 1px black;
 }
 
+#ask:focus {
+    outline: none;
+}
+
 #ask:hover {
     background-color: #18a176;
     cursor: pointer;
@@ -368,6 +390,7 @@ li {
 #bullet-ul {
     overflow-y: auto;
     padding-left: 18px;
+    margin-top: 10px;
 }
 
 .nav-bar a.left-push {
