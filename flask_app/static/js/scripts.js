@@ -40,3 +40,21 @@ function showSummary(data) {
     document.getElementById('tldr-butt').style.display = 'block';
     document.getElementById('loader').style.display = 'none';
 }
+
+function registerButton() {
+    localStorage.setItem('whichOne', 'register');
+}
+
+function loginButton() {
+    localStorage.setItem('whichOne', 'login')
+}
+
+function showSave() {
+    saveDiv = document.getElementById('notebook-pop');
+    saveDiv.style.display = 'block';
+}
+
+function closeSave() {
+    saveDiv = document.getElementById('notebook-pop');
+    saveDiv.style.display = 'none';
+}

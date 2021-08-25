@@ -5,7 +5,7 @@ from flask import flash
 EMAIL_CHECK = re.compile(r"(^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$)")
 CAPS = re.compile(r'[A-Z]')
 NUMS = re.compile(r'[0-9]')
-DB = 'users_schema'
+DB = 'tldr_schema'
 
 class User:
     def __init__(self, data):
@@ -34,6 +34,14 @@ class User:
             is_valid = False
         elif input['password'] != input['confirm-password']:
             flash('Passwords don\'t match.')
+            is_valid = False
+        return is_valid
+
+    @staticmethod
+    def validate_login(input):
+        is_valid = True
+        if not EMAIL_CHECK.match(input['email']):
+            flash('Please enter a valid email.')
             is_valid = False
         return is_valid
 
@@ -66,7 +74,12 @@ class User:
 
     @classmethod
     def get_user(cls, data):
-        query = 'SELECT * FROM users WHERE id = %(id)s'
+        if 'id' in data:
+            query = 'SELECT * FROM users WHERE id = %(id)s;'
+        if 'user_id' in data:
+            query = 'SELECT * FROM users WHERE id = %(user_id)s;'
+        if 'email' in data:
+            query = 'SELECT * FROM users WHERE email = %(email)s;'
         results = connectToMySQL(DB).query_db(query, data)
         user = cls(results[0])
         return user

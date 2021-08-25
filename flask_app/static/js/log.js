@@ -28,7 +28,7 @@ function onLoad() {
         e.preventDefault();
         var form = new FormData(loginForm)
         // little test
-        fetch('https://trevorengen.com/login', {method: 'POST', body: form})
+        fetch('http://localhost:5000/user/login', {method: 'POST', body: form})
             .then(response => response.json())
             .then(data => (data != 'connect') ? applyLoginFlash(data) : location.reload())
     }
@@ -37,7 +37,7 @@ function onLoad() {
     registerForm.onsubmit = function(e) {
         e.preventDefault();
         var form = new FormData(registerForm);
-        fetch('https://trevorengen.com/register', {method: 'POST', body: form})
+        fetch('http://localhost:5000/user/register', {method: 'POST', body: form})
             .then(response => response.json())
             .then(data => (data != 'connect') ? applyRegisterFlash(data) : location.reload())
     }
@@ -47,14 +47,6 @@ function hideToast() {
     toast = document.getElementById("this-toast")
     toast.setAttribute('style', 'display: none;')
 }
-
-/*  
-    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    VALIDATION STILL HAPPENS ON THE BACK END THIS
-    IS JUST SO THAT THE FORM IS RESPONSIVE AND
-    IT IS EASIER TO USE!!!
-    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-*/
 
 function activeRegister(elem) {
     if (elem.name == 'first_name') {

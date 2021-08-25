@@ -52,6 +52,20 @@ p {
     width: 20%;
 }
 
+#my-box {
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    -moz-transform: translateX(-50%) translateY(-50%);
+    -webkit-transform: translateX(-50%) translateY(-50%);
+    transform: translateX(-50%) translateY(-50%);
+}
+
+body {
+    background-image: url('../img/vertical-waves.png');
+    background-color: rgba(84, 214, 117, 0.349);
+}
+
 .myrow {
     display: flex;
     flex-flow: row nowrap;

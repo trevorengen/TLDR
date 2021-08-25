@@ -1,10 +1,12 @@
-from flask import render_template, redirect, request, session, jsonify
+from flask import render_template, redirect, request, session, jsonify, flash, get_flashed_messages
 from flask_app import app
 from flask_app.models.user import User
 from flask_bcrypt import Bcrypt
 from summarize import other_to_text, summarize
 import os
 from summarize import pdfToText, txt_to_text, other_to_text
+
+bcrypt = Bcrypt(app)
 
 @app.route('/')
 def index():
@@ -19,7 +21,11 @@ def dashboard():
         session['summary'] = ''
         session['summarize'] = ''
         summary = ''
-    return render_template('dashboard.html', summary=summary)
+    if 'user_id' in session:
+        user = User.get_user(session)
+    else:
+        user = None
+    return render_template('dashboard.html', summary=summary, user=user)
 
 @app.route('/summarize', methods=['POST'])
 def summarize_text():
@@ -45,5 +51,52 @@ def summarize_text():
     return jsonify(output)
 
 @app.route('/login')
-def login_register():
+def login():
+    if 'user_id' in session:
+        return redirect('/dashboard')
     return render_template('logreg.html')
+
+@app.route('/register')
+def register():
+    if 'user_id' in session:
+        return redirect('/dashboard')
+    return render_template('logreg.html')
+
+@app.route('/user/login', methods=['POST'])
+def login_user():
+    data = {
+        'email': request.form['email'],
+        'password': request.form['password']
+    }
+    if not User.validate_login(data):
+        return jsonify(get_flashed_messages())
+    if User.get_user(request.form) != False:
+        user = User.get_user(request.form)
+    else:
+        flash('Invalid email or password.')
+        return jsonify(get_flashed_messages())
+    if not bcrypt.check_password_hash(user.password, request.form['password']):
+        flash('Invalid email or password.')
+        return jsonify(get_flashed_messages())
+    else:
+        session['user_id'] = user.id
+        return jsonify('connect')
+
+@app.route('/user/register', methods=['POST'])
+def register_user():
+    if not User.validate_registration(request.form):
+        return jsonify(get_flashed_messages())
+    pass_hash = bcrypt.generate_password_hash(request.form['password'])
+    data = {
+            'first_name': request.form['first_name'],
+            'last_name': request.form['last_name'],
+            'email': request.form['email'],
+            'password': pass_hash,
+    }
+    session['user_id'] = User.save(data)
+    return jsonify('connect')
+
+@app.route('/logout')
+def logout():
+    del session['user_id']
+    return redirect('/dashboard')
