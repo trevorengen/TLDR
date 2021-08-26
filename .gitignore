@@ -4,3 +4,5 @@ env/
 __init__.py
 __pycache__
 witToken.py
+query.py
+summarize.py
