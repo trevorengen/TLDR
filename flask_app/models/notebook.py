@@ -65,6 +65,12 @@ class Notebook:
         notebook = cls(result[0])
         return notebook
 
+    @classmethod
+    def update_notebook_name(cls, data):
+        query = 'UPDATE notebooks SET notebooks.name = %(new_name)s, notebooks.updated_at = %(updated_at)s'
+        query += ' WHERE notebooks.name = %(old_name)s AND user_id = %(user_id)s;'
+        result = connectToMySQL(DB).query_db(query, data)
+        return result
 
     @classmethod
     def get_all_users_notebooks(cls, data):

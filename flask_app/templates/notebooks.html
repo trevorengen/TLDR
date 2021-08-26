@@ -20,10 +20,12 @@
         <a href="/logout" class="right-shove">Logout</a>
     </nav>
 
-    <main id="notebooks-main">
-        <div class="notebook-list">
+    <div class="notebook-side in">
+        <i class="material-icons" id="arr-right">keyboard_arrow_right</i>
+        <i class="material-icons" id="arr-left">keyboard_arrow_left</i>
+        <div id="side-container">
             <div class="row">
-                <h2>Your Notebooks</h2>
+                <h2 class="white">Your Notebooks</h2>
                 <button id="add-nb" class="notebook-butt">Add Notebook</button>
             </div>
             <ul id="notebook-ul">
@@ -31,29 +33,56 @@
                 {% else %} 
                     {% for notebook in notebooks %} 
                         <div class="row" id="{{notebook.name}}">
-                            <li class="notebooks-li row">{{notebook.name}}</li>
-                            <button class="edit-nb"><i class='far fa-edit left-push' style='font-size:24px'></i></button>
-                            <button class="delete-nb"><i class="fa fa-trash right-shove" style="font-size:24px"></i></button>
+                            <li class="notebooks-li row white">{{notebook.name}}</li>
+                            <button class="edit-nb"><i class='far fa-edit left-push' style='font-size:24px; color:#EAEAE0'></i></button>
+                            <button class="delete-nb"><i class="fa fa-trash right-shove" style="font-size:24px; color:#EAEAE0"></i></button>
                         </div>
                     {% endfor %} 
                 {% endif %} 
             </ul>
         </div>
-        <div class="notebook-list">
-            <div class="row">
-                <h2>Notes</h2>
-                <button class="notebook-butt" id="add-bullet">Add Bullet</button>
-                <button class="notebook-butt" id="delete-all">Delete All</button>
+    </div>
+
+    <main id="nb-col">
+        <div class="notebooks-main">
+            <div class="notebook-list">
+                <div class="row">
+                    <h2 class="head-h2">Notes</h2>
+                    <button class="notebook-butt" id="add-bullet">Add Bullet</button>
+                    <button class="notebook-butt" id="delete-all">Delete All</button>
+                </div>
+                
+                <ul id="bullet-ul">
+                    <li>Select a notebook to get started!</li>
+                </ul>
             </div>
-            
-            <ul id="bullet-ul">
-                <li>Select a notebook to get started!</li>
-            </ul>
-            <h4>Query your notebook</h4>
-            <div id="askform">
-                <textarea id="queryta" name="queryta" placeholder="Select a notebook to start!" disabled></textarea>
-                <input type="submit" value="Ask" id="ask">
+            <div class="notebook-list">
+                <div id="main-cont">
+                    <h2 class="head-h2">Questions & Answers</h2>
+                </div>
+                
+
+                <h4>Query your notebook</h4>
+                <div id="askform">
+                    <textarea id="queryta" name="queryta" placeholder="Select a notebook to start!" disabled></textarea>
+                    <div class="loader" id="other-loader"></div>
+                    <input type="submit" value="Ask" id="ask">
+                </div>
             </div>
+        </div>
+        <div class="notebooks-main">
+            <div class="notebook-list" id="explanation">
+                <h2>Notebook Usage</h2>
+                <p>
+                    Use the dashboard to create bulletpoints of large pieces of text and then save them to a notebook,
+                    or you can simply add the bulletpoints yourself. Once you've loaded up your notebook with all the information
+                    you need, you can simply query your notebook with the textarea below and the computer will do its best to
+                    answer your question based off the information you've provided! Take notes, add them to a notebook, and then 
+                    simply ask a question and the notebook will take care of the rest as well as provide a percentage of confidence
+                    in its answer!<br><br><b>The more information you provide to the computer the better your answers will be!</b>
+                </p>
+            </div>
+
         </div>
     </main>
 </body>

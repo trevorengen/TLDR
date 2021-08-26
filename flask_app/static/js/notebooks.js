@@ -1,6 +1,10 @@
 // jQuery methods
 $(document).ready(function() {
 
+    $('#side-container').hide();
+    $('#arr-left').hide();
+    $('.loader').hide();
+
     $('.notebooks-li').mouseover(function(){
         $(this).css('font-style', 'italic');
     });
@@ -10,12 +14,59 @@ $(document).ready(function() {
     });
 
     $('.delete-nb').click(function() {
-        notebookName = $(this).closest('div').attr('id');
+        var notebookName = $(this).closest('div').attr('id');
         if (!confirm('Are you sure you want to delete ' + notebookName + '?\n\nThis action cannot be undone.')) {
             return;
         }
         $(this).closest('div').remove();
         $.post('/notebooks/delete', { nbName : notebookName })
+    });
+
+    $('.edit-nb').click(function() {
+        // Conditional to prevent user from making a bunch of 
+        // text boxes.
+        if ($('#temp-text').attr('type') == 'text'){
+            return;
+        }
+        var divItem = $(this).closest('div');
+        var notebookName = divItem.attr('id');
+        var listItem = $(this).siblings('li');
+        listItem.css({'display': 'none'});
+        var newText = $('<input>');
+        newText.val(notebookName);
+        newText.attr('type', 'text');
+        newText.css({
+            'width': '80%', 'border': '2px solid black', 
+            'border-radius': '4px', 'height': '30px', 'outline': 'none',
+            'padding-left': '3px', 'margin': '10px 30px',
+        });
+        newText.attr('id', 'temp-text');
+        divItem.prepend(newText);
+        newText.on('keypress', function(e) {
+            if(e.which == 13){
+                var text = $('#temp-text').val();
+                var oldName = $('#temp-text').closest('div').attr('id');
+                $.post('/notebooks/update', { new_name : text , old_name : oldName })
+                    .done(location.reload());
+            }
+        });
+    })
+
+    $('.notebook-side').mouseleave(function(){
+        container = $(this);
+        container.animate({width: '60px'});
+        side.hide();
+        $('#arr-left').hide();
+        $('#arr-right').fadeIn(1000);
+    });
+
+    $('.notebook-side').mouseenter(function(){
+        container = $(this);
+        side = $('#side-container');
+        container.animate({width: '500px'});
+        $('#arr-left').fadeIn(1000);
+        $('#arr-right').hide();
+        side.fadeIn(1000);
     });
 
     $('.notebooks-li').click(function(){
@@ -37,9 +88,28 @@ $(document).ready(function() {
 
     $('#ask').click(function(){
         var myTa = $('#queryta').val();
+        if (myTa.length == 0) {
+            return;
+        }
+        $('#ask').hide();
+        $('.loader').show();
         $.post('/notebooks/query', { query : myTa })
             .done(function(data) {
+                $('#ask').show();
+                $('.loader').hide();
                 console.log(data);
+                var question = $('<p>');
+                var answer = $('<p>');
+                var percent = $('<p>');
+                var container = $('<div>');
+                container.css({'margin': '20px 0'})
+                question.text('Question: ' + $('#queryta').val());
+                answer.text('Answer: ' + data['answer']);
+                percent.text('Certainty: ' + String(Math.floor(100 * parseFloat(data['score'])) + '%'));
+                container.append(question);
+                container.append(answer);
+                container.append(percent);
+                $('#main-cont').append(container);
             });
     });
 
@@ -62,7 +132,7 @@ $(document).ready(function() {
             if(e.which == 13){
                 var text = $('#temp-text').val();
                 $('#temp').remove();
-                
+
                 $.post('/notebooks/add', { name : text })
                     .done(location.reload());
             }

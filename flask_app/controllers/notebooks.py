@@ -4,6 +4,7 @@ from flask_app import app
 from flask_app.models.user import User
 from flask_app.models.notebook import Notebook
 from query import query_notebook
+from datetime import datetime
 
 @app.route('/notebooks')
 def notebooks():
@@ -40,6 +41,29 @@ def add_notebook():
     if save:
         Notebook.save_notebook(data)
         notebook_names.append(data['name'])
+    return jsonify(notebook_names)
+
+@app.route('/notebooks/update', methods=['POST'])
+def update_notebook():
+    if 'user_id' not in session:
+        return redirect('/dashboard')
+    data = {'new_name': request.form['new_name'],
+            'old_name': request.form['old_name'],
+            'user_id': session['user_id'],
+            'updated_at': datetime.now()}
+    notebooks = Notebook.get_all_users_notebooks(session)
+    notebook_names = []
+    update = True
+    for notebook in notebooks:
+        if data['new_name'].lower() == notebook.name.lower():
+            update = False
+        if data['old_name'] == notebook.name:
+            continue
+        else:
+            notebook_names.append(notebook.name)
+    if update:
+        notebook_names.append(data['new_name'])
+        Notebook.update_notebook_name(data)
     return jsonify(notebook_names)
 
 @app.route('/notebooks/delete', methods=['POST'])
