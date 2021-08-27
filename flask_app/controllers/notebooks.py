@@ -5,15 +5,29 @@ from flask_app.models.user import User
 from flask_app.models.notebook import Notebook
 from query import query_notebook
 from datetime import datetime
+from webparse import parse_body
+import validators
 
 @app.route('/notebooks')
 def notebooks():
     if 'user_id' not in session:
         return redirect('/dashboard')
+    print(session['context'])
     notebooks = Notebook.get_all_users_notebooks(session)
     if type(notebooks) != list:
         notebooks = []
     return render_template('notebooks.html', notebooks=notebooks)
+
+@app.route('/addcontext', methods=['POST'])
+def add_context():
+    if 'user_id' not in session:
+        return redirect('/dashboard')
+    url = request.form['url']
+    valid = validators.url(url)
+    if not valid:
+        return jsonify('Must enter valid URL.')
+    session['context'] = url
+    return jsonify('test')
 
 @app.route('/notebooks/add', methods=['POST'])
 def add_notebook():
@@ -125,12 +139,15 @@ def ask_to_notebook():
         return jsonify('Valid notebook not found.')
     query = request.form['query']
     notebook_name = session['active_notebook']
+    checked = request.form['checkbox']
     data = {
             'user_id': session['user_id'],
             'name': notebook_name
     }
     notebook = Notebook.get_one_notebook(data)
     context = ' '.join(notebook.bullets)
+    if checked and 'context' in session:
+        context = ''.join(parse_body(session['context']))
     answer = query_notebook(query, context)
     return jsonify(answer)
 

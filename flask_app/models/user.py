@@ -81,6 +81,8 @@ class User:
         if 'email' in data:
             query = 'SELECT * FROM users WHERE email = %(email)s;'
         results = connectToMySQL(DB).query_db(query, data)
+        if len(results) == 0:
+            return False
         user = cls(results[0])
         return user
 

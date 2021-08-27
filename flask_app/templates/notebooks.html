@@ -58,11 +58,25 @@
             </div>
             <div class="notebook-list">
                 <div id="main-cont">
-                    <h2 class="head-h2">Questions & Answers</h2>
+                    <div class="row">
+                        <h2 class="head-h2">Questions & Answers</h2>
+                        <button class="notebook-butt" id="add-context">Add Webpage Context</button>
+                        <div class="tooltip">
+                            ?
+                            <span class="tooltiptext">Add a webpage to get better answers!</span>
+                        </div>
+                    </div>
+                    <div id="url-add">
+                    
+                    </div>
                 </div>
-                
 
+                
                 <h4>Query your notebook</h4>
+                <div class="row-close">
+                    <label for="use-url">Use Webpage Context?</label>
+                    <input type="checkbox" name="use-url" id="use-url">
+                </div>
                 <div id="askform">
                     <textarea id="queryta" name="queryta" placeholder="Select a notebook to start!" disabled></textarea>
                     <div class="loader" id="other-loader"></div>

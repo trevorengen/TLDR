@@ -554,18 +554,28 @@ form.row {
     position: relative;
     top: 45%;
     bottom: 50%;
-    left: 10px;
+    left: 5px;
     font-size: 50px;
     color: #EAEAE0;
+    background-color: #1DC690;
+    border-radius: 50%;
+    cursor: pointer;
 }
 
 #arr-left {
     position: relative;
     top: 45%;
     bottom: 50%;
-    left: 450px;
+    left: 430px;
     font-size: 50px;
     color: #EAEAE0;
+    background-color: #1DC690;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+#arr-left:active, #arr-right:active {
+    background-color: #18a176;
 }
 
 #explanation {
@@ -602,6 +612,72 @@ form.row {
     border-radius: 8px;
     box-shadow: 2px 2px 7px 1px black;
 }
+
+#add-context {
+    margin-left: 30px;
+    margin-right: -20px;
+    width: 145px;
+}
+
+#url-add {
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+.tooltip {
+    position: relative;
+    display: inline-block;
+    border-bottom: 1px dotted black;
+    font-size: 20px;
+    margin-right: 50px;
+  }
+
+  .row-close {
+      display: flex;
+      flex-flow: row nowrap;
+      justify-content: flex-start;
+      align-items: center;
+      margin: 1px 0 5px 10px;
+  }
+
+  .row-close label {
+    margin-right: 10px;
+
+  }
+  .row-close input {
+      transform: scale(1.35);
+      margin-top: 5px;
+  }
+  
+  .tooltip .tooltiptext {
+    visibility: hidden;
+    width: 120px;
+    background-color: black;
+    color: #EAEAE0;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+    position: absolute;
+    z-index: 1;
+    top: 150%;
+    left: 50%;
+    margin-left: -60px;
+  }
+  
+  .tooltip .tooltiptext::after {
+    content: "";
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: transparent transparent black transparent;
+  }
+  
+  .tooltip:hover .tooltiptext {
+    visibility: visible;
+  }
 
 .form-butt:hover {
     background-color: #2b81bb;

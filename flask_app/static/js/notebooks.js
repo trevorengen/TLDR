@@ -52,19 +52,19 @@ $(document).ready(function() {
         });
     })
 
-    $('.notebook-side').mouseleave(function(){
-        container = $(this);
+    $('#arr-left').click(function(){
+        container = $('.notebook-side');
         container.animate({width: '60px'});
         side.hide();
         $('#arr-left').hide();
-        $('#arr-right').fadeIn(1000);
+        $('#arr-right').delay(200).fadeIn(500);
     });
 
-    $('.notebook-side').mouseenter(function(){
-        container = $(this);
+    $('#arr-right').click(function(){
+        container = $('.notebook-side');
         side = $('#side-container');
         container.animate({width: '500px'});
-        $('#arr-left').fadeIn(1000);
+        $('#arr-left').fadeIn(1300);
         $('#arr-right').hide();
         side.fadeIn(1000);
     });
@@ -93,7 +93,8 @@ $(document).ready(function() {
         }
         $('#ask').hide();
         $('.loader').show();
-        $.post('/notebooks/query', { query : myTa })
+        var chkbox = $('#use-url').is(':checked');
+        $.post('/notebooks/query', { query : myTa , checkbox : chkbox})
             .done(function(data) {
                 $('#ask').show();
                 $('.loader').hide();
@@ -135,6 +136,27 @@ $(document).ready(function() {
 
                 $.post('/notebooks/add', { name : text })
                     .done(location.reload());
+            }
+        });
+    });
+
+    $('#add-context').click(function(){
+        var targetDiv = $('#url-add');
+        var newText = $('<input>');
+        newText.attr('type', 'text');
+        newText.css({
+            'width': '80%', 'border': '2px solid black', 
+            'border-radius': '4px', 'height': '30px', 'outline': 'none',
+            'padding-left': '3px', 'margin-top': '25px;',
+        });
+        newText.attr('id', 'temp-text');
+        targetDiv.append(newText);
+        newText.focus();
+        newText.on('keypress', function(e) {
+            if(e.which == 13){
+                var text = $('#temp-text').val();
+                $('#temp-text').remove()
+                $.post('/addcontext', {url : text})
             }
         });
     });
