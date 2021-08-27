@@ -40,12 +40,10 @@ function showSummary(data) {
     h2.innerHTML = 'Notes';
     ul.appendChild(h2);
     for (var i = 0; i < data.length; i++) {
-        for (var j = 0; j < data[i].length; j++) {
-            if (data[i][j].length >= 10) {
-                var li = document.createElement('li');
-            li.innerHTML = data[i][j];
-            ul.appendChild(li);
-            }
+        if (data[i].length >= 10) {
+            var li = document.createElement('li');
+        li.innerHTML = data[i];
+        ul.appendChild(li);
         }
     }
     document.getElementById('tldr-butt').style.display = 'block';

@@ -168,6 +168,20 @@ def add_bullet():
         return jsonify('Error adding bullet.')
     return jsonify('Complete')
 
+@app.route('/notebooks/updatebullet', methods=['POST'])
+def update_bullet():
+    if 'user_id' not in session:
+        return redirect('/dashboard')
+    data = {'bullet': request.form['bullet'],
+            'user_id': session['user_id'],
+            'bullet_id': request.form['bullet_id'],
+            'updated_at': datetime.now()}
+    if len(data['bullet']) == 0:
+        Notebook.delete_one_bullet(data)
+    else:
+        Notebook.update_bullet(data)
+    return jsonify('done')
+
 @app.route('/notebooks/deletebullets', methods=['POST'])
 def delete_all_bullets():
     if 'user_id' not in session:

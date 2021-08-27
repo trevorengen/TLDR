@@ -53,7 +53,7 @@ class Notebook:
         if bullets == False:
             return notebook
         for bullet in bullets:
-            notebook.bullets.append(bullet['bullet'])
+            notebook.bullets.append([bullet['bullet'], bullet['id']])
         return notebook
 
     @classmethod
@@ -95,8 +95,9 @@ class Notebook:
     def insert_bullets(cls, data):
         notebook = Notebook.get_one_notebook(data)
         results = None
+        bullets = [bullet[0].lower() for bullet in notebook.bullets]
         for bullet in data['bullets']:
-            if bullet in notebook.bullets:
+            if bullet.lower() in bullets:
                 continue
             else:
                 new_data = {'bullet': bullet, 'notebook_id': notebook.id}
@@ -120,5 +121,17 @@ class Notebook:
     @classmethod
     def insert_one_bullet(cls, data):
         query = 'INSERT INTO bullets (bullet, notebook_id) VALUES(%(bullet)s, %(notebook_id)s);'
+        results = connectToMySQL(DB).query_db(query, data)
+        return results
+
+    @classmethod
+    def delete_one_bullet(cls, data):
+        query = 'DELETE FROM bullets WHERE id = %(bullet_id)s;'
+        results = connectToMySQL(DB).query_db(query, data)
+        return results
+
+    @classmethod
+    def update_bullet(cls, data):
+        query = 'UPDATE bullets SET bullet = %(bullet)s, updated_at = %(updated_at)s WHERE bullets.id = %(bullet_id)s;'
         results = connectToMySQL(DB).query_db(query, data)
         return results

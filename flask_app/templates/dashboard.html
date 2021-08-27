@@ -28,7 +28,8 @@
                 <p class="big-p">
                     TLDR is easy to use. Just paste your text into the text box and hit the "TLDR" button and in seconds
                     your text will be transformed into an easy to read list of bullet points. TLDR also can accept file uploads
-                    of both text documents, PDF documents, and even audio files!
+                    of both text documents, PDF documents, and even audio files!<br><br>Keep in mind, TLDR summarizes every paragraph!
+                    if you want more bullet points from your text try breaking up larger chunks into smaller paragraphs.
                 </p>
             </div>
             <div class="container">
@@ -84,11 +85,13 @@ Its size and cultural position make it a model for the world's urban parks. Its 
                         {% for items in summary %} 
                             {% for item in items %}
                                 {% if item|length > 10 %} 
-                                    <li>{{item.lstrip().capitalize()}}</li>
+                                    <li class="bullet-li">{{item}}</li>
                                 {% endif %} 
                             {% endfor %}
                         {% endfor %}
+                        
                     </ul>
+                    
                 </div>
                 <input type="submit" value="Save to Notebook" id="save-notes" onclick="showSave();">
             </div>

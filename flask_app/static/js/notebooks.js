@@ -22,6 +22,23 @@ $(document).ready(function() {
         $.post('/notebooks/delete', { nbName : notebookName })
     });
 
+    $('.bullet-li').dblclick(function() {
+        console.log('here')
+        var text = $(this).text();
+        $(this).text('');
+        var newText = $('<textarea>');
+        newText.val(text);
+        newText.attr('type', 'text');
+        newText.css({
+            'width': '90%', 'border': '2px solid black', 
+            'border-radius': '4px', 'height': 'auto', 'outline': 'none',
+            'padding-left': '3px', 'margin': '10px 30px', 'resize': 'none',
+            'margin-right': '30px', 'padding-top': '7px', 'padding-bottom': '7px',
+        });
+        newText.attr('id', 'temp-text');
+        $(this).append(newText);
+    });
+
     $('.edit-nb').click(function() {
         // Conditional to prevent user from making a bunch of 
         // text boxes.
@@ -78,11 +95,43 @@ $(document).ready(function() {
                 targetUl.empty();
                 for (var i = 0; i < data.length; i++) {
                     var newLi = $('<li>');
+                    newLi.addClass('bullet-li');
                     newLi.appendTo(targetUl);
-                    newLi.text(data[i]);
+                    newLi.text(data[i][0]);
+                    newLi.attr('id', data[i][1]);
                 }
                 targetTa.prop('disabled', false);
                 targetTa.attr('placeholder', 'Ask your notebook a question!');
+                $('.bullet-li').dblclick(function() {
+                    console.log('here')
+                    var text = $(this).text();
+                    $(this).text('');
+                    var newText = $('<textarea>');
+                    newText.val(text);
+                    newText.attr('type', 'text');
+                    newText.css({
+                        'width': '90%', 'border': '2px solid black', 
+                        'border-radius': '4px', 'height': 'auto', 'outline': 'none',
+                        'padding-left': '3px', 'margin': '10px 30px', 'resize': 'none',
+                        'margin-right': '30px', 'padding-top': '7px', 'padding-bottom': '7px',
+                    });
+                    newText.attr('id', 'temp-text');
+                    $(this).append(newText);
+                    
+                    newText.on('keypress', function(e) {
+                        if(e.which == 13){
+                            var text = $('#temp-text').val();
+                            $('#temp').remove();
+                            var id = $(this).parent().attr('id');
+                            $(this).parent().text(text);
+                            if (text == '') {
+                                $('#'+id).hide();
+                            }
+                            $.post('/notebooks/updatebullet', { bullet : text , bullet_id : id })
+                                .done();
+                        }
+                    });
+                });
             });
     });
 

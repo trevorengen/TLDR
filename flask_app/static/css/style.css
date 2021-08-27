@@ -619,6 +619,11 @@ form.row {
     width: 145px;
 }
 
+#reduced {
+    margin-top: auto;
+    display: flex;
+}
+
 #url-add {
     margin-top: 15px;
     margin-bottom: 15px;
